@@ -34,7 +34,7 @@ export function AddBillButton() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(employeeData),
+      body: JSON.stringify("employeeData"),
     });
 
     if (response.ok) {
