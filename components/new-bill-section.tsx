@@ -23,6 +23,7 @@ import { JSX, SVGProps } from "react"
 import { AddBillButton } from "./add-bill-button"
 import prisma from "@/lib/prisma"
 import { StatusHistory } from "./component/status-history"
+import { StatusUpdateButton } from "./component/status-update-button"
 
 export async function AddNewBill() {
   const bills = await prisma.bill.findMany({
@@ -58,6 +59,7 @@ export async function AddNewBill() {
                     <th className="px-4 py-2 text-left">Designation</th>
                     <th className="px-4 py-2 text-right">Amount</th>
                     <th className="px-4 py-2 text-right">Status</th>
+                    <th className="px-4 py-2 text-right">Update</th>
                     <th className="px-4 py-2 text-right">Actions</th>
                   </tr>
                 </thead>
@@ -79,7 +81,10 @@ export async function AddNewBill() {
                           {bill.status[bill.status.length - 1].status}
                         </td>
                         <td className="px-4 py-2 text-right">
-                          <StatusHistory status={bill.status}/>
+                          <StatusUpdateButton />
+                        </td>
+                        <td className="px-4 py-2 text-right">
+                          <StatusHistory status={bill.status} />
                         </td>
                       </tr>
                     ))}
