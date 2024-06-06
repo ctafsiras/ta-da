@@ -1,0 +1,34 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Personnel {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  bd     String @unique
+  name   String
+  branch String
+  bills  Bill[]
+}
+
+model Bill {
+  id          String              @id @default(auto()) @map("_id") @db.ObjectId
+  personnelId String              @db.ObjectId
+  amount      Float
+  date        DateTime
+  status      String
+  personnel   Personnel           @relation(fields: [personnelId], references: [id])
+  history     BillStatusHistory[]
+}
+
+model BillStatusHistory {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  billId    String   @db.ObjectId
+  status    String
+  timestamp DateTime
+  bill      Bill     @relation(fields: [billId], references: [id])
+}
