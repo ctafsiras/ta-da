@@ -16,19 +16,15 @@ model Personnel {
 }
 
 model Bill {
-  id          String              @id @default(auto()) @map("_id") @db.ObjectId
-  personnelId String              @db.ObjectId
+  id          String          @id @default(auto()) @map("_id") @db.ObjectId
+  personnelId String          @db.ObjectId
   amount      Float
   date        DateTime
-  status      String
-  personnel   Personnel           @relation(fields: [personnelId], references: [id])
-  history     BillStatusHistory[]
+  status      StatusHistory[]
+  personnel   Personnel       @relation(fields: [personnelId], references: [id])
 }
 
-model BillStatusHistory {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  billId    String   @db.ObjectId
+type StatusHistory {
   status    String
-  timestamp DateTime
-  bill      Bill     @relation(fields: [billId], references: [id])
+  date DateTime
 }

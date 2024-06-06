@@ -25,16 +25,23 @@ import { JSX, SVGProps, useState } from "react"
 
 export function AddBillButton() {
   const [bd, setBd] = useState("");
+  const [personnelId, setPersonnelId] = useState("");
   const [name, setName] = useState("")
   const [branch, setBranch] = useState("")
   async function handleSubmit() {
-    const billData = { bd, name, branch };
+    const currentDate = new Date();
+    const date = currentDate.toISOString();
+    const status = {
+      date,
+      status: "POR Recieved"
+    }
+    const billData = { personnelId, amount: 0, date, status };
     const response = await fetch('/api/bills', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify("employeeData"),
+      body: JSON.stringify(billData),
     });
 
     if (response.ok) {
@@ -51,9 +58,13 @@ export function AddBillButton() {
       if (user.id) {
         setName(user.name);
         setBranch(user.branch);
-      }else{
+        setBd(user.bd);
+        setPersonnelId(user.id);
+      } else {
         setName('');
         setBranch('');
+        setBd('');
+        setPersonnelId('');
       }
 
     }
@@ -65,7 +76,7 @@ export function AddBillButton() {
       <h2 className="text-2xl font-bold mb-4">Generate Bill</h2>
       <div className="flex items-center mb-4">
         <Input className="flex-1 mr-4" placeholder="Enter BD" type="string" onChange={onUpdateBD} />
-        <Button>Add</Button>
+        <Button onClick={handleSubmit}>Add</Button>
       </div>
       <div className="flex items-center text-gray-500">
         <UserIcon className="w-5 h-5 mr-2" />
