@@ -25,8 +25,32 @@ import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "@
 import { Input } from "@/components/ui/input"
 import { useState } from "react"
 
-export function StatusUpdateButton() {
+export function StatusUpdateButton({ id }: any) {
   const [status, setStatus] = useState("")
+  const [amount, setAmount] = useState("")
+  async function handleSubmit() {
+    const currentDate = new Date();
+    const date = currentDate.toISOString();
+    const billData = {
+      id,
+      ...(amount && { newAmount: amount }),
+      newStatus: { date, status }
+    };
+    const response = await fetch('/api/bills/status', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(billData),
+    });
+
+    if (response.ok) {
+      console.log('Bill data updated successfully');
+    } else {
+      console.error('Error saving bill data');
+    }
+
+  }
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -39,7 +63,7 @@ export function StatusUpdateButton() {
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid items-center grid-cols-2 gap-4">
-          <Label htmlFor="status" className="text-right">
+            <Label htmlFor="status" className="text-right">
               Status
             </Label>
             <Select id="status" className="col-span-1" value={status} onValueChange={setStatus}>
@@ -47,25 +71,25 @@ export function StatusUpdateButton() {
                 <SelectValue placeholder="Select status" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="por-received">POR Received</SelectItem>
-                <SelectItem value="bill-prepared">Bill Prepared</SelectItem>
-                <SelectItem value="waiting-for-sign">Waiting For OIC/OC Sign</SelectItem>
-                <SelectItem value="bill-ready">Bill Ready</SelectItem>
-                <SelectItem value="paid">Paid</SelectItem>
+                <SelectItem value="POR Received">POR Received</SelectItem>
+                <SelectItem value="Bill Prepared">Bill Prepared</SelectItem>
+                <SelectItem value="Waiting For OIC/OC Sign">Waiting For OIC/OC Sign</SelectItem>
+                <SelectItem value="Bill Ready">Bill Ready</SelectItem>
+                <SelectItem value="Paid">Paid</SelectItem>
               </SelectContent>
             </Select>
           </div>
-          {status === "bill-prepared" && (
+          {status === "Bill Prepared" && (
             <div className="grid items-center grid-cols-4 gap-4">
               <Label htmlFor="amount" className="text-right">
                 Amount
               </Label>
-              <Input id="amount" type="number" className="col-span-3" />
+              <Input onChange={e => setAmount(e.target.value)} id="amount" type="number" className="col-span-3" />
             </div>
           )}
         </div>
         <DialogFooter>
-          <Button type="submit">Update</Button>
+          <Button type="submit" onClick={handleSubmit}>Update</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
