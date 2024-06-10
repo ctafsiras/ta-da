@@ -22,13 +22,16 @@ To read more about using these font, please visit the Next.js documentation:
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { JSX, SVGProps, useState } from "react"
+import LoadingButton from "./loading-button";
 
 export function AddBillButton() {
   const [bd, setBd] = useState("");
   const [personnelId, setPersonnelId] = useState("");
   const [name, setName] = useState("")
   const [branch, setBranch] = useState("")
+  const [loading, setLoading] = useState(false)
   async function handleSubmit() {
+    setLoading(true)
     const currentDate = new Date();
     const date = currentDate.toISOString();
     const status = {
@@ -49,7 +52,7 @@ export function AddBillButton() {
     } else {
       console.error('Error saving employee data');
     }
-
+    setLoading(false)
   }
   async function onUpdateBD(e: any) {
     if (e.target.value.length > 4) {
@@ -76,7 +79,8 @@ export function AddBillButton() {
       <h2 className="text-2xl font-bold mb-4">Generate Bill</h2>
       <div className="flex items-center mb-4">
         <Input className="flex-1 mr-4" placeholder="Enter BD" type="string" onChange={onUpdateBD} />
-        <Button onClick={handleSubmit}>Add</Button>
+        {/* <Button onClick={handleSubmit}>Add</Button> */}
+        <LoadingButton loading={loading} onClick={handleSubmit}>Add</LoadingButton>
       </div>
       <div className="flex items-center text-gray-500">
         <UserIcon className="w-5 h-5 mr-2" />

@@ -29,6 +29,9 @@ export async function AddNewBill() {
   const bills = await prisma.bill.findMany({
     include: {
       personnel: true
+    },
+    orderBy: {
+      date: 'desc'
     }
   });
   return (
@@ -75,13 +78,11 @@ export async function AddNewBill() {
                         <td className="px-4 py-2">{bill.personnel.name}</td>
                         <td className="px-4 py-2">{bill.personnel.branch}</td>
                         <td className="px-4 py-2 text-right">{bill.amount.toFixed(2)} ৳</td>
-                        <td
-                          className={`px-4 py-2 text-right ${bill.status[bill.status.length - 1].status === "Paid" ? "text-green-500" : "text-red-500"}`}
-                        >
+                        <td className={`px-4 py-2 text-right ${getStatusColor(bill.status[bill.status.length - 1].status)}`}>
                           {bill.status[bill.status.length - 1].status}
                         </td>
                         <td className="px-4 py-2 text-right">
-                          <StatusUpdateButton id={bill.id}/>
+                          <StatusUpdateButton id={bill.id} />
                         </td>
                         <td className="px-4 py-2 text-right">
                           <StatusHistory status={bill.status} />
@@ -120,3 +121,16 @@ function EyeOffIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
     </svg>
   )
 }
+
+const getStatusColor = (status: string) => {
+  switch (status) {
+    case "Paid":
+      return "text-green-500";
+    case "Bill Prepared":
+      return "text-yellow-500";
+    case "Bill Ready":
+      return "text-blue-500";
+    default:
+      return "text-red-500";
+  }
+};

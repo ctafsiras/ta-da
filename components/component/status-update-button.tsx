@@ -24,11 +24,14 @@ import { Label } from "@/components/ui/label"
 import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
 import { useState } from "react"
+import LoadingButton from "../loading-button"
 
 export function StatusUpdateButton({ id }: any) {
   const [status, setStatus] = useState("")
   const [amount, setAmount] = useState("")
+  const [loading, setLoading] = useState(false)
   async function handleSubmit() {
+    setLoading(true)
     const currentDate = new Date();
     const date = currentDate.toISOString();
     const billData = {
@@ -49,7 +52,7 @@ export function StatusUpdateButton({ id }: any) {
     } else {
       console.error('Error saving bill data');
     }
-
+    setLoading(false)
   }
   return (
     <Dialog>
@@ -89,7 +92,8 @@ export function StatusUpdateButton({ id }: any) {
           )}
         </div>
         <DialogFooter>
-          <Button type="submit" onClick={handleSubmit}>Update</Button>
+          {/* <Button type="submit" onClick={handleSubmit}>Update</Button> */}
+          <LoadingButton loading={loading} type="submit" onClick={handleSubmit}>Update</LoadingButton>
         </DialogFooter>
       </DialogContent>
     </Dialog>
