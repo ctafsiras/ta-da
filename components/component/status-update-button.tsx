@@ -69,7 +69,8 @@ export function StatusUpdateButton({ id }: any) {
             <Label htmlFor="status" className="text-right">
               Status
             </Label>
-            <Select id="status" className="col-span-1" value={status} onValueChange={setStatus}>
+            {/* className="col-span-1" */}
+            <Select value={status} onValueChange={setStatus}>
               <SelectTrigger>
                 <SelectValue placeholder="Select status" />
               </SelectTrigger>
