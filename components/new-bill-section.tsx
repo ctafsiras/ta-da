@@ -54,9 +54,9 @@ export async function AddNewBill() {
               <table className="w-full table-auto">
                 <thead>
                   <tr className="bg-gray-100 dark:bg-gray-800">
-                    <th className="px-4 py-2 text-left">ID</th>
+                    <th className="px-4 py-2 text-left">BD</th>
                     <th className="px-4 py-2 text-left">Name</th>
-                    <th className="px-4 py-2 text-left">Designation</th>
+                    <th className="px-4 py-2 text-left">Branch</th>
                     <th className="px-4 py-2 text-right">Amount</th>
                     <th className="px-4 py-2 text-right">Status</th>
                     <th className="px-4 py-2 text-right">Update</th>

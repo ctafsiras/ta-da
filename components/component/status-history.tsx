@@ -20,6 +20,7 @@ To read more about using these font, please visit the Next.js documentation:
 import { Button } from "@/components/ui/button"
 import { DialogTrigger, DialogTitle, DialogHeader, DialogContent, Dialog } from "@/components/ui/dialog"
 import type { StatusHistory } from "@prisma/client"
+import { formatTime } from "@/lib/timeFormat"
 
 export function StatusHistory({ status }: { status: StatusHistory[] }) {
   return (
@@ -37,17 +38,18 @@ export function StatusHistory({ status }: { status: StatusHistory[] }) {
             <div key={i} className="grid gap-2 text-sm">
               <div className="flex items-center justify-between">
                 <div className="font-medium">
-                  {new Date(st?.date).toLocaleDateString('en-GB', {
+                  {new Date(st?.date).toLocaleDateString('en-US', {
                     day: '2-digit',
                     month: 'long',
-                    year: 'numeric'
+                    year: 'numeric',
+                    timeZone: 'Asia/Dhaka'
                   })}
                 </div>
                 <div className="px-2 py-1 rounded-full bg-green-100 text-green-900 dark:bg-green-900/20 dark:text-green-400">
                   {st.status}
                 </div>
               </div>
-              <div className="text-gray-500 dark:text-gray-400">Status: {st.status}</div>
+              <div className="text-gray-500 dark:text-gray-400">Time: {formatTime("" + st.date)}</div>
             </div>
           ))}
 
