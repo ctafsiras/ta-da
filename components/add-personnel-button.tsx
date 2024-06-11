@@ -47,11 +47,11 @@ const AddPersonnelButton = () => {
                 <SelectValue placeholder="Select branch" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="gdp">GD(P)</SelectItem>
-                <SelectItem value="gdn">GD(N)</SelectItem>
-                <SelectItem value="engg">Engg</SelectItem>
-                <SelectItem value="finance">Finance</SelectItem>
-                <SelectItem value="legal">Legal</SelectItem>
+                <SelectItem value="GD(P)">GD(P)</SelectItem>
+                <SelectItem value="GD(N)">GD(N)</SelectItem>
+                <SelectItem value="Engg">Engg</SelectItem>
+                <SelectItem value="Finance">Finance</SelectItem>
+                <SelectItem value="Legal">Legal</SelectItem>
               </SelectContent>
             </Select>
           </div>

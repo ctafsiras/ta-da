@@ -79,8 +79,8 @@ export function AddBillButton() {
       <h2 className="text-2xl font-bold mb-4">Generate Bill</h2>
       <div className="flex items-center mb-4">
         <Input className="flex-1 mr-4" placeholder="Enter BD" type="string" onChange={onUpdateBD} />
-        {/* <Button onClick={handleSubmit}>Add</Button> */}
-        <LoadingButton loading={loading} onClick={handleSubmit}>Add</LoadingButton>
+        <Button onClick={handleSubmit}>Add</Button>
+        {/* <LoadingButton loading={loading} onClick={handleSubmit}>Add</LoadingButton> */}
       </div>
       <div className="flex items-center text-gray-500">
         <UserIcon className="w-5 h-5 mr-2" />

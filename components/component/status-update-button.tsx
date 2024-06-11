@@ -93,8 +93,8 @@ export function StatusUpdateButton({ id }: any) {
           )}
         </div>
         <DialogFooter>
-          {/* <Button type="submit" onClick={handleSubmit}>Update</Button> */}
-          <LoadingButton loading={loading} type="submit" onClick={handleSubmit}>Update</LoadingButton>
+          <Button type="submit" onClick={handleSubmit}>Update</Button>
+          {/* <LoadingButton loading={loading} type="submit" onClick={handleSubmit}>Update</LoadingButton> */}
         </DialogFooter>
       </DialogContent>
     </Dialog>
