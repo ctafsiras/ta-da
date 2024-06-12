@@ -68,7 +68,7 @@ export async function AddNewBill() {
                 </thead>
                 <tbody>
                   {bills
-                    // .filter((bill) => showPaidBills || bill.status !== "Paid")
+                    .filter((bill) => bill.status[bill.status.length - 1].status !== "Paid")
                     .map((bill) => (
                       <tr
                         key={bill.id}
