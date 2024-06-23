@@ -1,7 +1,7 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { MoreHorizontal } from "lucide-react"
+import { ArrowDown, ArrowUpDown, MoreHorizontal } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -12,38 +12,133 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Checkbox } from "@/components/ui/checkbox"
+import { useState } from "react"
+import { StatusHistory } from "@/components/component/status-history"
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 export type Payment = {
-    id: string
-    amount: number
-    status: "pending" | "processing" | "success" | "failed"
-    email: string
+    personnel: {
+        id: string;
+        bd: string;
+        name: string;
+        branch: string;
+    };
+    id: string;
+    personnelId: string;
+    amount: number;
+    date: Date;
+    status: {
+        status: string;
+        date: Date; // Change this to string to match the requirement
+    }[];
 }
+const StatusColumnHeader = ({ column }: any) => {
+    const [filter, setFilter] = useState('');
 
+    const handleFilterChange = (status: any) => {
+        setFilter(status);
+        column.setFilterValue(status);
+    };
+
+    const statusOptions = ['POR Recieved', 'Paid', 'Bill Prepared', 'Bill Ready', 'Waiting For OIC/OC Sign']; // Example statuses
+
+    return (
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button variant="ghost">
+                    Status
+                    <ArrowDown className="ml-2 h-4 w-4" />
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+                <DropdownMenuItem onClick={() => handleFilterChange('')}>
+                    Show All
+                </DropdownMenuItem>
+                {statusOptions.map((status) => (
+                    <DropdownMenuItem key={status} onClick={() => handleFilterChange(status)}>
+                        {status}
+                    </DropdownMenuItem>
+                ))}
+            </DropdownMenuContent>
+        </DropdownMenu>
+    );
+};
 export const columns: ColumnDef<Payment>[] = [
     {
-        accessorKey: "status",
-        header: "Status",
+        id: "select",
+        header: ({ table }) => (
+            <Checkbox
+                checked={
+                    table.getIsAllPageRowsSelected() ||
+                    (table.getIsSomePageRowsSelected() && "indeterminate")
+                }
+                onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+                aria-label="Select all"
+            />
+        ),
+        cell: ({ row }) => (
+            <Checkbox
+                checked={row.getIsSelected()}
+                onCheckedChange={(value) => row.toggleSelected(!!value)}
+                aria-label="Select row"
+            />
+        ),
+        enableSorting: false,
+        enableHiding: false,
+    },
+
+    {
+        accessorKey: "personnel.bd",
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    BD No
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            )
+        },
     },
     {
-        accessorKey: "email",
-        header: "Email",
+        accessorKey: 'personnel.name',
+        header: "Name",
+    },
+    {
+        accessorKey: 'personnel.branch',
+        header: "Branch",
     },
     {
         accessorKey: "amount",
-        // header: "Amount",
-        header: () => <div className="text-right">Amount</div>,
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    Amount
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            )
+        },
         cell: ({ row }) => {
             const amount = parseFloat(row.getValue("amount"))
             const formatted = new Intl.NumberFormat("en-US", {
                 style: "currency",
-                currency: "USD",
+                currency: "BDT",
             }).format(amount)
 
-            return <div className="text-right font-medium">{formatted}</div>
+            return <div className="text-left font-medium">{formatted}</div>
         },
+    },
+    {
+        id: 'status', // Add this line to specify the id for the column
+        accessorFn: (row) => row.status[row.status.length - 1].status,
+        header: StatusColumnHeader,
+        cell: ({ row }) => <div>{row.original.status[row.original.status.length - 1].status}</div>,
     },
     {
         id: "actions",
@@ -71,6 +166,15 @@ export const columns: ColumnDef<Payment>[] = [
                         <DropdownMenuItem>View payment details</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
+            )
+        },
+    },
+    {
+        id: "history",
+        header: "History",
+        cell: ({ row }) => {
+            return (
+                <StatusHistory status={row.original.status} />
             )
         },
     },
