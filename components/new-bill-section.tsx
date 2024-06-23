@@ -14,7 +14,6 @@ export async function AddNewBill() {
       date: 'desc'
     }
   });
-  console.log(bills);
   return (
     <div className="container mx-auto py-8">
       <div className="grid gap-8">
