@@ -15,6 +15,7 @@ import {
 import { Checkbox } from "@/components/ui/checkbox"
 import { useState } from "react"
 import { StatusHistory } from "@/components/component/status-history"
+import { StatusUpdateButton } from "@/components/component/status-update-button"
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -138,34 +139,43 @@ export const columns: ColumnDef<Payment>[] = [
         id: 'status', // Add this line to specify the id for the column
         accessorFn: (row) => row.status[row.status.length - 1].status,
         header: StatusColumnHeader,
-        cell: ({ row }) => <div>{row.original.status[row.original.status.length - 1].status}</div>,
+        cell: ({ row }) => <span className={`px-2 rounded py-1 text-right ${getStatusColor(row.original.status[row.original.status.length - 1].status)}`}>{row.original.status[row.original.status.length - 1].status}</span>,
     },
-    {
-        id: "actions",
-        header: "Actions",
-        cell: ({ row }) => {
-            const payment = row.original
+    // {
+    //     id: "actions",
+    //     header: "Actions",
+    //     cell: ({ row }) => {
+    //         const payment = row.original
 
+    //         return (
+    //             <DropdownMenu>
+    //                 <DropdownMenuTrigger asChild>
+    //                     <Button variant="ghost" className="h-8 w-8 p-0">
+    //                         <span className="sr-only">Open menu</span>
+    //                         <MoreHorizontal className="h-4 w-4" />
+    //                     </Button>
+    //                 </DropdownMenuTrigger>
+    //                 <DropdownMenuContent align="end">
+    //                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
+    //                     <DropdownMenuItem
+    //                         onClick={() => navigator.clipboard.writeText(payment.id)}
+    //                     >
+    //                         Copy payment ID
+    //                     </DropdownMenuItem>
+    //                     <DropdownMenuSeparator />
+    //                     <DropdownMenuItem>View customer</DropdownMenuItem>
+    //                     <DropdownMenuItem>View payment details</DropdownMenuItem>
+    //                 </DropdownMenuContent>
+    //             </DropdownMenu>
+    //         )
+    //     },
+    // },
+    {
+        id: "update",
+        header: "Update",
+        cell: ({ row }) => {
             return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Open menu</span>
-                            <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem
-                            onClick={() => navigator.clipboard.writeText(payment.id)}
-                        >
-                            Copy payment ID
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>View customer</DropdownMenuItem>
-                        <DropdownMenuItem>View payment details</DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                <StatusUpdateButton id={row.original.id} />
             )
         },
     },
@@ -179,3 +189,16 @@ export const columns: ColumnDef<Payment>[] = [
         },
     },
 ]
+
+const getStatusColor = (status: string) => {
+    switch (status) {
+        case "Paid":
+            return "text-green-700 bg-green-200";
+        case "Bill Prepared":
+            return "text-yellow-700 bg-yellow-200";
+        case "Bill Ready":
+            return "text-blue-700 bg-blue-200";
+        default:
+            return "text-red-700 bg-red-200";
+    }
+};

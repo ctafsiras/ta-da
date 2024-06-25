@@ -29,7 +29,7 @@ export async function AllPersonnelList() {
     const personnels=await prisma.personnel.findMany({});
   return (
     <div className="flex flex-col gap-8">
-        {/* <AddPersonnelButton/> */}
+        <AddPersonnelButton/>
            <div className="bg-white p-6 shadow-md dark:bg-gray-950">
         <h2 className="mb-4 text-2xl font-bold">Personnel List</h2>
         <Table>

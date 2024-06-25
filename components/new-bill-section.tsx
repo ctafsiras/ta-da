@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { JSX, SVGProps } from "react"
-import { AddBillButton } from "./add-bill-button"
+import { AddBillButton } from "../app/bills/add-bill-button"
 import prisma from "@/lib/prisma"
 import { StatusHistory } from "./component/status-history"
 import { StatusUpdateButton } from "./component/status-update-button"
