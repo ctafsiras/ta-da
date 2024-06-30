@@ -17,7 +17,7 @@ export default async function BillsPage() {
   return (
     <div className="container mx-auto py-10">
       <AddBillButton />
-      <DataTable columns={columns} data={data} />
+      <DataTable columns={columns} data={data}/>
     </div>
   )
 }

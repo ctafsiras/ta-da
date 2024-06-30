@@ -7,7 +7,7 @@ export function StatusHistory({ status }: { status: StatusHistory[] }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">History</Button>
+        <Button variant="outline">Show</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px]">
         <DialogHeader>
