@@ -13,8 +13,8 @@ const LoadingButton: React.FC<LoadingButtonProps> = ({ loading, children, ...pro
     return (
         <div>
             {loading ? (
-                <Button disabled>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                <Button disabled {...props}>
+                    <Loader2 className="h-4 animate-spin" />
                     Please wait
                 </Button>
             ) : (
