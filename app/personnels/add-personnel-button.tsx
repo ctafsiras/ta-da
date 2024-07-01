@@ -1,66 +1,137 @@
-"use client"
-import React, { useState } from 'react';
-import { Label } from '../../components/ui/label';
-import { Input } from '../../components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../components/ui/select';
-import { Button } from '../../components/ui/button';
-import prisma from '@/lib/prisma';
+"use client";
+import React, { useState } from "react";
+import { Input } from "../../components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../../components/ui/select";
+import { z } from "zod";
+import { Controller, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "@/components/ui/use-toast";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import LoadingButton from "@/components/loading-button";
+
+const FormSchema = z.object({
+  bd: z.string().min(4, {
+    message: "BD number must be at least 4 characters.",
+  }),
+  name: z.string().min(2, {
+    message: "Name must be at least 2 characters.",
+  }),
+  branch: z.string().min(1, "Required"),
+});
 
 const AddPersonnelButton = () => {
-  const [bd, setBd] = useState("");
-  const [name, setName] = useState("")
-  const [branch, setBranch] = useState("")
-  async function handleSubmit() {
-    const employeeData = { bd, name, branch };
-    const response = await fetch('/api/personnel', {
-      method: 'POST',
+  const [loading, setLoading] = useState(false);
+
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      bd: "",
+      name: "",
+      branch: "",
+    },
+  });
+
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    setLoading(true);
+    const response = await fetch("/api/personnel", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(employeeData),
+      body: JSON.stringify(data),
     });
-
     if (response.ok) {
-      console.log('Employee data saved successfully');
+      toast({
+        title: "Employee data saved successfully",
+      });
     } else {
-      console.error('Error saving employee data');
+      toast({
+        title: "Error saving employee data",
+      });
     }
-
+    setLoading(false);
   }
+
   return (
-    <div>
-      <div className="bg-white p-6 shadow-md dark:bg-gray-950">
-        <h2 className="mb-4 text-2xl font-bold">Add New Employee</h2>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-          <div>
-            <Label htmlFor="id">Employee BD</Label>
-            <Input required id="id" name="id" placeholder="Enter employee ID" type="text" onChange={(e) => setBd(e.target.value)} value={bd} />
-          </div>
-          <div>
-            <Label htmlFor="name">Name</Label>
-            <Input required id="name" name="name" placeholder="Enter employee name" type="text" onChange={(e) => setName(e.target.value)} value={name} />
-          </div>
-          <div>
-            <Label htmlFor="branch">Branch</Label>
-            <Select required name="branch" onValueChange={setBranch} value={branch}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select branch" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="GD(P)">GD(P)</SelectItem>
-                <SelectItem value="GD(N)">GD(N)</SelectItem>
-                <SelectItem value="Engg">Engg</SelectItem>
-                <SelectItem value="Finance">Finance</SelectItem>
-                <SelectItem value="Legal">Legal</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-        <div className="mt-4 flex justify-end">
-          <Button onClick={handleSubmit}>Save</Button>
-        </div>
-      </div>
-    </div>
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex space-x-4 items-center"
+      >
+        <FormField
+          control={form.control}
+          name="bd"
+          render={({ field }) => (
+            <FormItem className="pb-8">
+              <FormLabel>BD Number</FormLabel>
+              <FormControl>
+                <Input placeholder="Type BD Number..." {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem className="pb-8">
+              <FormLabel>Name</FormLabel>
+              <FormControl>
+                <Input placeholder="Type Name..." {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="branch"
+          render={({ field }) => (
+            <FormItem className="pb-8">
+              <FormLabel>Branch</FormLabel>
+              <FormControl>
+                <Controller
+                  control={form.control}
+                  name="branch"
+                  render={({ field: { onChange, value } }) => (
+                    <Select value={value} onValueChange={onChange}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select branch" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="GD(P)">GD(P)</SelectItem>
+                        <SelectItem value="GD(N)">GD(N)</SelectItem>
+                        <SelectItem value="Engg">Engg</SelectItem>
+                        <SelectItem value="Finance">Finance</SelectItem>
+                        <SelectItem value="Legal">Legal</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  )}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <LoadingButton loading={loading} className="ml-2" type="submit">
+          Save
+        </LoadingButton>
+      </form>
+    </Form>
   );
 };
 
