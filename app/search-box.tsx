@@ -3,7 +3,6 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-
 import {
     Form,
     FormControl,
@@ -14,7 +13,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { toast } from "@/components/ui/use-toast"
-import LoadingButton from "./loading-button"
+import LoadingButton from "../components/loading-button"
 import { useState } from "react"
 
 const FormSchema = z.object({
@@ -23,7 +22,7 @@ const FormSchema = z.object({
     }),
 })
 
-export function InputForm({ setData }: any) {
+export function SearchBox({ setData }: any) {
     const [loading, setLoading] = useState(false)
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
@@ -50,14 +49,13 @@ export function InputForm({ setData }: any) {
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="flex  items-center">
                 <FormField
-
                     control={form.control}
                     name="bd"
                     render={({ field }) => (
                         <FormItem className="pb-8">
                             <FormLabel>BD Number</FormLabel>
                             <FormControl>
-                                <Input placeholder="10452" {...field} />
+                                <Input placeholder="Type BD Number..." {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>

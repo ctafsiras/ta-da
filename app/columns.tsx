@@ -1,24 +1,17 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { ArrowDown, ArrowUpDown, MoreHorizontal } from "lucide-react"
-
+import { ArrowDown, ArrowUpDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Checkbox } from "@/components/ui/checkbox"
 import { useState } from "react"
 import { StatusHistory } from "@/components/component/status-history"
-import { StatusUpdateButton } from "@/components/component/status-update-button"
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
 export type Payment = {
     personnel: {
         id: string;
@@ -35,7 +28,7 @@ export type Payment = {
         date: Date; // Change this to string to match the requirement
     }[];
 }
-const StatusColumnHeader = ({ column }: any) => {
+export const StatusColumnHeader = ({ column }: any) => {
     const [filter, setFilter] = useState('');
 
     const handleFilterChange = (status: any) => {
@@ -69,17 +62,7 @@ const StatusColumnHeader = ({ column }: any) => {
 export const columns: ColumnDef<Payment>[] = [
     {
         accessorKey: "personnel.bd",
-        header: ({ column }) => {
-            return (
-                <Button
-                    variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                >
-                    BD No
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-            )
-        },
+        header: "BD Number"
     },
     {
         accessorKey: 'personnel.name',
@@ -129,7 +112,7 @@ export const columns: ColumnDef<Payment>[] = [
     },
 ]
 
-const getStatusColor = (status: string) => {
+export const getStatusColor = (status: string) => {
     switch (status) {
         case "Paid":
             return "text-green-700 bg-green-200";
