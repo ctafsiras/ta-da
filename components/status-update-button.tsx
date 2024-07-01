@@ -5,8 +5,9 @@ import { Label } from "@/components/ui/label"
 import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
 import { useState } from "react"
-import LoadingButton from "../loading-button"
-import { toast } from "../ui/use-toast"
+import { toast } from "./ui/use-toast"
+import LoadingButton from "./loading-button"
+
 
 export function StatusUpdateButton({ id }: any) {
   const [status, setStatus] = useState("")

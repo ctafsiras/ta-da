@@ -10,7 +10,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useState } from "react"
-import { StatusHistory } from "@/components/component/status-history"
+import { StatusHistory } from "@/components/status-history"
 
 export type Payment = {
     personnel: {

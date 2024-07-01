@@ -26,11 +26,11 @@ import prisma from "@/lib/prisma"
 import AddPersonnelButton from "./add-personnel-button"
 
 export async function AllPersonnelList() {
-    const personnels=await prisma.personnel.findMany({});
+  const personnels = await prisma.personnel.findMany({});
   return (
     <div className="flex flex-col gap-8">
-        <AddPersonnelButton/>
-           <div className="bg-white p-6 shadow-md dark:bg-gray-950">
+      <AddPersonnelButton />
+      <div className="bg-white p-6 shadow-md dark:bg-gray-950">
         <h2 className="mb-4 text-2xl font-bold">Personnel List</h2>
         <Table>
           <TableHeader>
@@ -49,7 +49,6 @@ export async function AllPersonnelList() {
               </TableRow>
             ))}
           </TableBody>
-       
         </Table>
       </div>
     </div>

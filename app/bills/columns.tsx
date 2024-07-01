@@ -3,9 +3,9 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { StatusHistory } from "@/components/component/status-history"
-import { StatusUpdateButton } from "@/components/component/status-update-button"
+import { StatusHistory } from "@/components/status-history"
 import { StatusColumnHeader, getStatusColor } from "../columns"
+import { StatusUpdateButton } from "@/components/status-update-button"
 
 export type Payment = {
     personnel: {

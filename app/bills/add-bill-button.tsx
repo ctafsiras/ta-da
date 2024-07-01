@@ -3,35 +3,89 @@ import { Input } from "@/components/ui/input"
 import { JSX, SVGProps, useState } from "react"
 import LoadingButton from "../../components/loading-button";
 
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+
+import { toast } from "@/components/ui/use-toast"
+
+const FormSchema = z.object({
+  bd: z.string().min(4, {
+    message: "BD number must be at least 4 characters.",
+  }),
+  personnelId: z.string().min(4, {
+    message: "ID number must be at least 4 characters.",
+  }),
+  name: z.string().min(3, {
+    message: "Name must be at least 3 characters.",
+  }),
+  branch: z.string().min(3, {
+    message: "Branch name must be at least 3 characters.",
+  }),
+})
+
 export function AddBillButton() {
+  const [loading, setLoading] = useState(false)
   const [bd, setBd] = useState("");
   const [personnelId, setPersonnelId] = useState("");
   const [name, setName] = useState("")
   const [branch, setBranch] = useState("")
-  const [loading, setLoading] = useState(false)
-  async function handleSubmit() {
-    setLoading(true)
-    const currentDate = new Date();
-    const date = currentDate.toISOString();
-    const status = {
-      date,
-      status: "POR Recieved"
-    }
-    const billData = { personnelId, amount: 0, date, status };
-    const response = await fetch('/api/bills', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(billData),
-    });
 
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      bd: "",
+    },
+  })
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    setLoading(true)
+    const response = await fetch(`/api/bills/${data.bd}`);
+    const bills = await response.json();
     if (response.ok) {
-      console.log('Employee data saved successfully');
+
     } else {
-      console.error('Error saving employee data');
+      toast({
+        title: "Error saving employee data",
+      })
     }
     setLoading(false)
+  }
+
+  async function handleSubmit() {
+    try {
+      setLoading(true)
+      const currentDate = new Date();
+      const date = currentDate.toISOString();
+      const status = {
+        date,
+        status: "POR Recieved"
+      }
+      const billData = { personnelId, amount: 0, date, status };
+      const response = await fetch('/api/bills', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(billData),
+      });
+      if (response.ok) {
+        console.log('Employee data saved successfully');
+      } else {
+        console.error('Error saving employee data');
+      }
+    } catch (error) {
+      console.error('Error saving employee data');
+    } finally {
+      setLoading(false)
+    }
   }
   async function onUpdateBD(e: any) {
     if (e.target.value.length >= 4) {
@@ -95,9 +149,6 @@ function BriefcaseIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>)
     </svg>
   )
 }
-
-
-
 function UserIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
   return (
     <svg
