@@ -5,7 +5,24 @@ import { ArrowUpDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { StatusHistory } from "@/components/component/status-history"
 import { StatusUpdateButton } from "@/components/component/status-update-button"
-import { Payment, StatusColumnHeader, getStatusColor } from "../columns"
+import { StatusColumnHeader, getStatusColor } from "../columns"
+
+export type Payment = {
+    personnel: {
+        id: string;
+        bd: string;
+        name: string;
+        branch: string;
+    };
+    id: string;
+    personnelId: string;
+    amount: number;
+    date: Date;
+    status: {
+        status: string;
+        date: Date; // Change this to string to match the requirement
+    }[];
+}
 
 export const columns: ColumnDef<Payment>[] = [
     {
@@ -54,7 +71,7 @@ export const columns: ColumnDef<Payment>[] = [
         },
     },
     {
-        id: 'status', 
+        id: 'status',
         accessorFn: (row) => row.status[row.status.length - 1].status,
         header: StatusColumnHeader,
         cell: ({ row }) => <span className={`px-2 rounded py-1 text-right ${getStatusColor(row.original.status[row.original.status.length - 1].status)}`}>{row.original.status[row.original.status.length - 1].status}</span>,
