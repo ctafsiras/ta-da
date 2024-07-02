@@ -3,6 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import DeletePersonnel from "./delete-user";
 export type Personnel = {
   id: string;
   bd: string;
@@ -32,5 +33,12 @@ export const columns: ColumnDef<Personnel>[] = [
   {
     accessorKey: "branch",
     header: "Branch",
+  },
+  {
+    id: "actions",
+    header: "Actions",
+    cell: ({ row }) => {
+      return <DeletePersonnel bd={row.original.bd}/>;
+    },
   },
 ];

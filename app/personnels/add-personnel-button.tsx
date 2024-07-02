@@ -116,8 +116,15 @@ const AddPersonnelButton = () => {
                         <SelectItem value="GD(P)">GD(P)</SelectItem>
                         <SelectItem value="GD(N)">GD(N)</SelectItem>
                         <SelectItem value="Engg">Engg</SelectItem>
-                        <SelectItem value="Finance">Finance</SelectItem>
+                        <SelectItem value="Logistic">Logistic</SelectItem>
+                        <SelectItem value="Admin">Admin</SelectItem>
+                        <SelectItem value="ATC">ATC</SelectItem>
+                        <SelectItem value="ADWC">ADWC</SelectItem>
+                        <SelectItem value="Education">Education</SelectItem>
                         <SelectItem value="Legal">Legal</SelectItem>
+                        <SelectItem value="Finance">Finance</SelectItem>
+                        <SelectItem value="Met">Met</SelectItem>
+                        <SelectItem value="Medical">Medical</SelectItem>
                       </SelectContent>
                     </Select>
                   )}

@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-
+//update bill status
 export async function POST(request: Request) {
     const data = await request.json();
     const { id, newStatus, newAmount } = data;

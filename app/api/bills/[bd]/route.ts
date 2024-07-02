@@ -1,5 +1,7 @@
 import prisma from "@/lib/prisma"
 
+
+//get all bills by bd
 export async function GET(
     request: Request,
     { params }: { params: { bd: string } }
