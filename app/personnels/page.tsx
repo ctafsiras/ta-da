@@ -3,6 +3,7 @@ import { DataTable } from "./data-table";
 import { columns } from "./columns";
 import prisma from "@/lib/prisma";
 import AddPersonnelButton from "./add-personnel-button";
+export const dynamic = "force-dynamic";
 
 const page = async () => {
   const data = await prisma.personnel.findMany({});

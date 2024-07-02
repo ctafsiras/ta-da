@@ -2,7 +2,7 @@ import prisma from "@/lib/prisma";
 import { Payment, columns } from "./columns"
 import { DataTable } from "./data-table"
 import { AddBillButton } from "./add-bill-button";
-
+export const dynamic = 'force-dynamic'
 
 export default async function BillsPage() {
   const data = await prisma.bill.findMany({
