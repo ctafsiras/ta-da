@@ -21,6 +21,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import LoadingButton from "@/components/loading-button";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
 
 const FormSchema = z.object({
   bd: z.string().min(4, {
@@ -60,6 +63,7 @@ const AddPersonnelButton = () => {
     } else {
       toast({
         title: "Error saving employee data",
+        variant: "destructive"
       });
     }
     setLoading(false);
@@ -137,6 +141,9 @@ const AddPersonnelButton = () => {
         <LoadingButton loading={loading} className="ml-2" type="submit">
           Save
         </LoadingButton>
+        {/* <Separator orientation="vertical" /> */}
+        <p className="md:text-lg md:px-16">OR</p>
+        <Link href='personnels/import'><Button variant="outline">Import From Excel</Button></Link>
       </form>
     </Form>
   );

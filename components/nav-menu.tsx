@@ -28,10 +28,10 @@ export function NavMenu() {
         <span>TADA Bill</span>
       </Link>
       <nav className="ml-auto flex gap-4 sm:gap-6">
-        <Link className="text-sm font-medium hover:underline underline-offset-4" href="bills">
+        <Link className="text-sm font-medium hover:underline underline-offset-4" href="/bills">
           Bills
         </Link>
-        <Link className="text-sm font-medium hover:underline underline-offset-4" href="personnels">
+        <Link className="text-sm font-medium hover:underline underline-offset-4" href="/personnels">
           Personnel
         </Link>
       </nav>
