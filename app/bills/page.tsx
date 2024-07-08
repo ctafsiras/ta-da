@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic'
 
 export default async function BillsPage() {
 
-  const res = await fetch('http://localhost:3000/api/bills/', { next: { tags: ['getAllBills'] }, cache: 'no-store' })
+  const res = await fetch('https://ta-da-roan.vercel.app/api/bills/', { next: { tags: ['getAllBills'] }, cache: 'no-store' })
   const data = await res.json()
 
   return (
