@@ -33,7 +33,7 @@ const DeleteBill = ({ id }: { id: string }) => {
                 variant: "destructive",
                 title: `Error deleting data`,
                 description:
-                    response.url,
+                    response.statusText,
             });
         }
         setLoading(false);
