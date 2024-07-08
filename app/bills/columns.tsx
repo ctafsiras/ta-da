@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { StatusHistory } from "@/components/status-history"
 import { StatusColumnHeader, getStatusColor } from "../columns"
 import { StatusUpdateButton } from "@/components/status-update-button"
+import DeleteBill from "./delete-bill"
 
 export type Payment = {
     personnel: {
@@ -92,6 +93,13 @@ export const columns: ColumnDef<Payment>[] = [
             return (
                 <StatusHistory status={row.original.status} />
             )
+        },
+    },
+    {
+        id: "actions",
+        header: "Actions",
+        cell: ({ row }) => {
+            return <DeleteBill id={row.original.id} />;
         },
     },
 ]
