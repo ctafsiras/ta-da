@@ -24,6 +24,7 @@ import LoadingButton from "@/components/loading-button";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
+import { revalidateGetAllPersonnels } from "../actions";
 
 const FormSchema = z.object({
   bd: z.string().min(4, {
@@ -57,6 +58,7 @@ const AddPersonnelButton = () => {
       body: JSON.stringify(data),
     });
     if (response.ok) {
+      revalidateGetAllPersonnels();
       toast({
         title: "Employee data saved successfully",
       });

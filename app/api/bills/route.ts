@@ -26,6 +26,13 @@ export async function POST(request: Request) {
 
 
 export async function GET(request: Request) {
-  const data = await prisma.personnel.findMany({});
+  const data = await prisma.bill.findMany({
+    include: {
+      personnel: true
+    },
+    orderBy: {
+      date: 'desc'
+    }
+  });
   return Response.json(data);
 }

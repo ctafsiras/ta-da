@@ -16,6 +16,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { toast } from "@/components/ui/use-toast";
+import { revalidateGetAllPersonnels } from "@/app/actions";
 const Page = () => {
   const [data, setData] = React.useState<any[]>([]);
   const [loading, setLoading] = React.useState(false);
@@ -54,6 +55,7 @@ const Page = () => {
         body: JSON.stringify(convertedData),
       });
       if (response.ok) {
+        revalidateGetAllPersonnels();
         toast({
           title: "Employee data saved successfully",
         });

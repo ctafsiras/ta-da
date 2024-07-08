@@ -5,19 +5,14 @@ import { AddBillButton } from "./add-bill-button";
 export const dynamic = 'force-dynamic'
 
 export default async function BillsPage() {
-  const data = await prisma.bill.findMany({
-    include: {
-      personnel: true
-    },
-    orderBy: {
-      date: 'desc'
-    }
-  });
+
+  const res = await fetch('http://localhost:3000/api/bills/', { next: { tags: ['getAllBills'] }, cache: 'no-store' })
+  const data = await res.json()
 
   return (
     <div className="container mx-auto py-10">
       <AddBillButton />
-      <DataTable columns={columns} data={data}/>
+      <DataTable columns={columns} data={data} />
     </div>
   )
 }

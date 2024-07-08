@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input"
 import { useState } from "react"
 import { toast } from "./ui/use-toast"
 import LoadingButton from "./loading-button"
+import { revalidateGetAllBills } from "@/app/actions"
 
 
 export function StatusUpdateButton({ id }: any) {
@@ -31,7 +32,7 @@ export function StatusUpdateButton({ id }: any) {
     });
 
     if (response.ok) {
-      console.log('Bill data updated successfully');
+      revalidateGetAllBills()
       toast({
         title: `Bill status updated to ${status} successfully`,
       })

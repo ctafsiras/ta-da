@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Trash2Icon } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
+import { revalidateGetAllBills } from "../actions";
 
 const DeleteBill = ({ id }: { id: string }) => {
     const [loading, setLoading] = useState(false);
@@ -25,6 +26,7 @@ const DeleteBill = ({ id }: { id: string }) => {
         });
 
         if (response.ok) {
+            revalidateGetAllBills()
             toast({
                 title: `Bill Deleted successfully`,
             });

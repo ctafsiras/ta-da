@@ -7,3 +7,7 @@ export async function POST(request: Request) {
     })
     return Response.json(res)
 }
+export async function GET(request: Request) {
+    const data = await prisma.personnel.findMany({});
+    return Response.json(data)
+}

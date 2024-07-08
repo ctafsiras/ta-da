@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/form";
 
 import { toast } from "@/components/ui/use-toast";
+import { revalidateGetAllBills } from "../actions";
 
 const FormSchema = z.object({
   bd: z.string().min(4, {
@@ -43,11 +44,18 @@ export function AddBillButton() {
         body: JSON.stringify({ bd: data.bd }),
       });
       if (response.ok) {
-        console.log("Employee bill saved successfully");
+        revalidateGetAllBills()
+        toast({
+          title: `Employee bill saved successfully`,
+        });
       } else {
-        console.error("Error saving employee data");
+        toast({
+          variant: "destructive",
+          title: `Error saving employee bill`,
+        });
       }
     } catch (error) {
+
       console.error("Error saving employee data");
     } finally {
       setLoading(false);
