@@ -31,10 +31,17 @@ const Page = () => {
         );
         setData(jsonData);
       } else {
-        console.error("No file selected");
+        toast({
+          variant: "destructive",
+          title: `No file selected`,
+        })
       }
     } catch (error) {
-      console.error("Error reading file:", error);
+      toast({
+        title: "Error reading file",
+        variant: "destructive",
+        description: JSON.stringify(error),
+      });
     }
   }
 
