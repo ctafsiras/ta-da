@@ -126,7 +126,7 @@ const AddPersonnelButton = () => {
                         <SelectItem value="Admin">Admin</SelectItem>
                         <SelectItem value="ATC">ATC</SelectItem>
                         <SelectItem value="ADWC">ADWC</SelectItem>
-                        <SelectItem value="Education">Education</SelectItem>
+                        <SelectItem value="Edn">Edn</SelectItem>
                         <SelectItem value="Legal">Legal</SelectItem>
                         <SelectItem value="Finance">Finance</SelectItem>
                         <SelectItem value="Met">Met</SelectItem>
