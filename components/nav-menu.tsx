@@ -25,7 +25,7 @@ export function NavMenu() {
     <header className="flex h-16 w-full shrink-0 items-center px-4 md:px-6 border-b">
       <Link className="flex items-center gap-2 text-lg font-semibold" href="/">
         <MountainIcon className="h-6 w-6" />
-        <span>TADA Bill</span>
+        <span>TA/DA Bill Management Software</span>
       </Link>
       <nav className="ml-auto flex gap-4 sm:gap-6">
         <Link className="text-sm font-medium hover:underline underline-offset-4" href="/bills">
