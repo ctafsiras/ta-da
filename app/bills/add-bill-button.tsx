@@ -36,7 +36,7 @@ export function AddBillButton() {
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     try {
       setLoading(true);
-      const response = await fetch("/api/bills", {
+      const response = await fetch("/apsi/bills", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -8,3 +8,8 @@ export async function revalidateGetAllBills() {
 export async function revalidateGetAllPersonnels() {
     revalidateTag("getAllPersonnels");
 }
+
+export async function create() {
+   
+
+}
