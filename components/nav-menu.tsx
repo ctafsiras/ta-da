@@ -34,6 +34,9 @@ export function NavMenu() {
         <Link className="text-sm font-medium hover:underline underline-offset-4" href="/personnels">
           Personnel
         </Link>
+        <Link className="text-sm font-medium hover:underline underline-offset-4" href="/users">
+          Users
+        </Link>
       </nav>
     </header>
   )
