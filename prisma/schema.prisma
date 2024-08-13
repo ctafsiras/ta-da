@@ -7,6 +7,18 @@ generator client {
   provider = "prisma-client-js"
 }
 
+model User {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  bd       String @unique
+  password String
+  role     Role   @default(Viewer)
+}
+
+enum Role {
+  Admin
+  Viewer
+}
+
 model Personnel {
   id     String @id @default(auto()) @map("_id") @db.ObjectId
   bd     String @unique
@@ -25,6 +37,6 @@ model Bill {
 }
 
 type StatusHistory {
-  status    String
-  date DateTime
+  status String
+  date   DateTime
 }
