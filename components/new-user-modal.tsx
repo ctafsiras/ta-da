@@ -30,6 +30,7 @@ const NewUserModal = () => {
         setUsers([...users, data])
         setShowModal(false)
     }
+
     return (
         <div className="">
             <Button onClick={() => setShowModal(true)}>Add User</Button>

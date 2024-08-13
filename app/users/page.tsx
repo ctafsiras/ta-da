@@ -1,11 +1,13 @@
 import NewUserModal from "@/components/new-user-modal";
+import prisma from "@/lib/prisma";
+import { PrismaPromise, User } from "@prisma/client";
 
 
 
 
 
-export default function Component() {
-    const users: any = [];
+export default async function Component() {
+    const users: any = await prisma.user.findMany({});
 
     return (
         <div className="p-6">
@@ -18,15 +20,15 @@ export default function Component() {
                     <thead className="bg-muted">
                         <tr>
                             <th className="px-4 py-3 text-left">#</th>
-                            <th className="px-4 py-3 text-left">User ID</th>
+                            <th className="px-4 py-3 text-left">BD No</th>
                             <th className="px-4 py-3 text-left">Role</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {users.map((user: any) => (
+                        {users.map((user: User) => (
                             <tr key={user.id} className="border-b">
                                 <td className="px-4 py-3">{user.id}</td>
-                                <td className="px-4 py-3">{user.userId}</td>
+                                <td className="px-4 py-3">{user.bd}</td>
                                 <td className="px-4 py-3">{user.role}</td>
                             </tr>
                         ))}
