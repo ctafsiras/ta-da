@@ -29,9 +29,10 @@ const NewUserModal = () => {
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
-        // Assuming `createUser` is a server-side action function
         await createUser({ bd, password, role });
-        setShowModal(false); // Close modal on successful submit
+        const result = await createUser({ bd: 'example' });
+        console.log(result);
+        setShowModal(false);
     };
 
     return (
@@ -79,11 +80,9 @@ const NewUserModal = () => {
                                         Role
                                     </Label>
                                     <Select
-                                        id="role"
                                         name="role"
                                         value={role}
                                         onValueChange={setRole}
-                                        className="col-span-3"
                                     >
                                         <SelectTrigger>
                                             <SelectValue placeholder="Select role" />
@@ -99,7 +98,7 @@ const NewUserModal = () => {
                                 <Button variant="outline" onClick={() => setShowModal(false)}>
                                     Cancel
                                 </Button>
-                                <Button type="submit">Create</Button>
+                                <Button type="submit" onClick={handleSubmit} >Create</Button>
                             </DialogFooter>
                         </DialogContent>
                     </form>
@@ -110,3 +109,4 @@ const NewUserModal = () => {
 };
 
 export default NewUserModal;
+
