@@ -1,10 +1,7 @@
 import NewUserModal from "@/components/new-user-modal";
 import prisma from "@/lib/prisma";
-import { PrismaPromise, User } from "@prisma/client";
-
-
-
-
+import { User } from "@prisma/client";
+import DeleteUser from "./delete-user";
 
 export default async function Component() {
     const users: any = await prisma.user.findMany({});
@@ -22,6 +19,7 @@ export default async function Component() {
                             <th className="px-4 py-3 text-left">#</th>
                             <th className="px-4 py-3 text-left">BD No</th>
                             <th className="px-4 py-3 text-left">Role</th>
+                            <th className="px-4 py-3 text-left">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -30,6 +28,7 @@ export default async function Component() {
                                 <td className="px-4 py-3">{user.id}</td>
                                 <td className="px-4 py-3">{user.bd}</td>
                                 <td className="px-4 py-3">{user.role}</td>
+                                <td className="px-4 py-3"><DeleteUser id={user.id} /></td>
                             </tr>
                         ))}
                     </tbody>

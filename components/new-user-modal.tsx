@@ -29,9 +29,10 @@ const NewUserModal = () => {
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
-        await createUser({ bd, password, role });
-        const result = await createUser({ bd: 'example' });
+        const result = await createUser({ bd, password, role });
         console.log(result);
+        setBD("")
+        setPassword("")
         setShowModal(false);
     };
 
