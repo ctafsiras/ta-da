@@ -2,6 +2,7 @@ import NewUserModal from "@/components/new-user-modal";
 import prisma from "@/lib/prisma";
 import { User } from "@prisma/client";
 import DeleteUser from "./delete-user";
+import dynamic from "next/dynamic";
 
 export default async function Component() {
     const users: any = await prisma.user.findMany({});

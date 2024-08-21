@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Trash2Icon } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
-import { revalidateGetAllBills } from "../actions";
 import { deleteUser } from "./actions";
 
 const DeleteUser = ({ id }: { id: string }) => {

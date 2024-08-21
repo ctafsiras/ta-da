@@ -11,5 +11,4 @@ export async function revalidateGetAllPersonnels() {
 
 export async function create() {
    
-
 }
