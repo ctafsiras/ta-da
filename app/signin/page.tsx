@@ -2,26 +2,37 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { signinUser } from '../users/actions'
+import { toast } from '@/components/ui/use-toast'
+
+import useAuth from "@/hooks/useAuth";
 
 export default function SignIn() {
     const [bd, setBD] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
+    const [loading, setLoading] = useState(false)
     const router = useRouter()
+    const { login } = useAuth();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setError('')
+        setLoading(true);
+        const user = await signinUser({ bd, password });
 
-        // Here you would typically make an API call to your authentication endpoint
-        // For this example, we'll just simulate a successful sign-in
-        if (bd && password) {
-            // Simulate successful sign-in
-            console.log('Sign-in successful')
-            router.push('/dashboard') // Redirect to dashboard after successful sign-in
+        if (user) {
+            login(user)
+            toast({
+                title: `Sign In successfully`,
+            });
         } else {
-            setError('Please enter both bd and password')
+            toast({
+                variant: "destructive",
+                title: `Error sign in`,
+            });
         }
+        setLoading(false);
     }
 
     return (
