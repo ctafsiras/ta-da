@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Trash2Icon } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
-import { revalidateGetAllPersonnels } from "../actions";
+import { revalidateGetAllPersonnels } from "../../actions";
 
 const DeletePersonnel = ({ bd }: { bd: string }) => {
   const [loading, setLoading] = useState(false);

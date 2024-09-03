@@ -19,6 +19,7 @@ To read more about using these font, please visit the Next.js documentation:
 **/
 import Link from "next/link"
 import { JSX, SVGProps } from "react"
+import LogoutButton from "./logout-btn"
 
 export function NavMenu() {
   return (
@@ -27,7 +28,7 @@ export function NavMenu() {
         <MountainIcon className="h-6 w-6" />
         <span>TA/DA Bill Management Software</span>
       </Link>
-      <nav className="ml-auto flex gap-4 sm:gap-6">
+      <nav className="ml-auto flex gap-4 sm:gap-6 items-center">
         <Link className="text-sm font-medium hover:underline underline-offset-4" href="/bills">
           Bills
         </Link>
@@ -37,6 +38,7 @@ export function NavMenu() {
         <Link className="text-sm font-medium hover:underline underline-offset-4" href="/users">
           Users
         </Link>
+        <LogoutButton />
       </nav>
     </header>
   )

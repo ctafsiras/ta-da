@@ -19,7 +19,7 @@ import {
     SelectItem,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { createUser } from "@/app/users/actions"; // Assuming this is a server-side function
+import { createUser } from "@/app/(admin_routes)/users/actions"; // Assuming this is a server-side function
 
 const NewUserModal = () => {
     const [showModal, setShowModal] = useState(false);

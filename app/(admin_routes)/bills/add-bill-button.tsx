@@ -1,7 +1,7 @@
 "use client";
 import { Input } from "@/components/ui/input";
 import { JSX, SVGProps, useState } from "react";
-import LoadingButton from "../../components/loading-button";
+import LoadingButton from "../../../components/loading-button";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/form";
 
 import { toast } from "@/components/ui/use-toast";
-import { revalidateGetAllBills } from "../actions";
+import { revalidateGetAllBills } from "../../actions";
 
 const FormSchema = z.object({
   bd: z.string().min(4, {

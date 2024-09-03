@@ -1,13 +1,13 @@
 "use client";
 import React, { useState } from "react";
-import { Input } from "../../components/ui/input";
+import { Input } from "../../../components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../components/ui/select";
+} from "../../../components/ui/select";
 import { z } from "zod";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -24,7 +24,7 @@ import LoadingButton from "@/components/loading-button";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
-import { revalidateGetAllPersonnels } from "../actions";
+import { revalidateGetAllPersonnels } from "../../actions";
 
 const FormSchema = z.object({
   bd: z.string().min(4, {

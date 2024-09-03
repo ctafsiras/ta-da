@@ -2,10 +2,11 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { signinUser } from '../users/actions'
+import { signinUser } from '../(admin_routes)/users/actions'
 import { toast } from '@/components/ui/use-toast'
 
 import useAuth from "@/hooks/useAuth";
+import LoadingButton from '@/components/loading-button'
 
 export default function SignIn() {
     const [bd, setBD] = useState('')
@@ -20,12 +21,16 @@ export default function SignIn() {
         setError('')
         setLoading(true);
         const user = await signinUser({ bd, password });
+        console.log("Fun called");
+        console.log("Hello: user; ", user);
 
         if (user) {
             login(user)
             toast({
                 title: `Sign In successfully`,
             });
+            router.push('/')
+            router.refresh()
         } else {
             toast({
                 variant: "destructive",
@@ -67,12 +72,13 @@ export default function SignIn() {
                             required
                         />
                     </div>
-                    <button
+                    <LoadingButton
+                        loading={loading}
                         type="submit"
                         className="w-full rounded-md bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     >
                         Sign In
-                    </button>
+                    </LoadingButton>
                 </form>
             </div>
         </div>
